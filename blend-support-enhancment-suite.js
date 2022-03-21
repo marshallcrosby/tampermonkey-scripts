@@ -511,8 +511,12 @@
                         // Set amount data attribute
                         modal.attr('data-img-amount', $(this).closest('.js-img-gallery').find('.js-img-gallery__item').length);
 
+                        var attachmentTitle = $(this).closest('.js-img-gallery__item').find('.js-img-gallery__meta td a').first().text();
+                        var attachmentSize = $(this).closest('.js-img-gallery__item').find('.js-img-gallery__meta td .size').first().text();
+                        var attachmentAuthor = $(this).closest('.js-img-gallery__item').find('.js-img-gallery__meta .author').text();
+
                         // Populate modal
-                        modalTitle.html('<strong>' + $(this).closest('.js-img-gallery__item').find('.js-img-gallery__meta td').first().text() + '</strong><br>' + $(this).closest('.js-img-gallery__item').find('.js-img-gallery__meta .author').text());
+                        modalTitle.html('<strong>' + attachmentTitle + '</strong> ' + attachmentSize + '<br>' + attachmentAuthor);
                         modalMedia.html('<img src="' + $(this).find('.js-img-gallery__img').attr('src') + '">');
 
                         // Assign current indexes (for navigation)
