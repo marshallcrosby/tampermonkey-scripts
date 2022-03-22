@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Blend Support Enhancment Suite
 // @namespace    http://tampermonkey.net/
-// @version      0.2.4
+// @version      0.2.5
 // @description  Attempt to make Redmine a little more enjoyable to use.
 // @author       Marshall
 // @match        *support.blendinteractive.com/*
