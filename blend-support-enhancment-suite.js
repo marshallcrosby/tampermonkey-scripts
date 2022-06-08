@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Blend Support Enhancment Suite
-// @namespace    http://tampermonkey.net/
-// @version      0.2.5
+// @namespace    https://marshallcrosby.com/
+// @version      0.2.6
 // @description  Attempt to make Redmine a little more enjoyable to use.
 // @author       Marshall
 // @match        *support.blendinteractive.com/*
@@ -14,12 +14,13 @@
 
     window.addEventListener('DOMContentLoaded', function() {
 
+
         /*-------------------------------------------------------------------------
             Create style tag, populate it and throw it up in the <head> tag
         -------------------------------------------------------------------------*/
 
         let styleTag = document.createElement('style');
-        let styleDecs = `
+        let styleDecs = /* css */`
             :root {
                 --color-utility-bg: #efefef;
                 --color-utility-bg-hover: #e5e4e4;
@@ -346,18 +347,18 @@
             Create modal element(s) and append it to body
         -------------------------------------------------------------------------*/
 
-        let chevronSVG = `
+        let chevronSVG = /* html */`
             <svg width="15" height="37" viewBox="0 0 22 37" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M19.9688 2.00049L2.99825 18.5843L19.9688 35.168" stroke="#1A1A1A" stroke-width="4"></path>
             </svg>
         `;
-        let closeSVG = `
+        let closeSVG = /* html */`
             <svg width="14" height="14" viewBox="0 0 18 17.7" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path class="st0" d="M17.1,1L9,8.8l8.1,7.9" stroke="#1A1A1A" stroke-width="4"/>
                 <path class="st0" d="M1,16.8L9,8.9L1,1" stroke="#1A1A1A" stroke-width="4"/>
             </svg>
         `;
-        let modalHtml = `
+        let modalHtml = /* html */`
             <div class="js-modal__dialog">
                 <div class="js-modal__content">
                     <div class="js-modal__header">
@@ -389,21 +390,20 @@
         document.body.appendChild(modalEl);
         document.body.appendChild(modalBackdropEl);
 
+
         // Start using jquery from here on out because I'm lazy
-		(function($) {
+		(function ($) {
 
 
-
-			/*-------------------------------------------------------------------------
+            /*-------------------------------------------------------------------------
                 Make attachments and external links open in new window
             -------------------------------------------------------------------------*/
 
-			$('.external, .icon-attachment, .icon-download').each(function() {
-				$('[href="' + $(this).attr('href') + '"]')
+            $('.external, .icon-attachment, .icon-download').each(function () {
+                $('[href="' + $(this).attr('href') + '"]')
                     .attr('target', '_blank')
                     .attr('rel', 'noopener noreferrer');
-			});
-
+            });
 
 
             /*-------------------------------------------------------------------------
@@ -442,7 +442,6 @@
             }
 
 
-
             /*-------------------------------------------------------------------------
                 Cache some elements to use for the image gallery stuff up next
             -------------------------------------------------------------------------*/
@@ -453,7 +452,6 @@
             let modalMedia = modal.find('.js-modal__media');
             let modalCloseElements = $('.js-modal-backdrop, .js-btn__close');
             let modalNavButtons = modal.find('.js-modal__prev, .js-modal__next');
-
 
 
             /*-------------------------------------------------------------------------
@@ -532,7 +530,6 @@
             }
 
 
-
             /*-------------------------------------------------------------------------
                 Create thumbnail view of image attachments in single threads
             -------------------------------------------------------------------------*/
@@ -597,7 +594,6 @@
             });
 
 
-
             /*-------------------------------------------------------------------------
                 Setup modal navigation inside groups of images
             -------------------------------------------------------------------------*/
@@ -641,7 +637,6 @@
             });
 
 
-
             /*-------------------------------------------------------------------------
                 Set modal nav buttons state
             -------------------------------------------------------------------------*/
@@ -678,7 +673,6 @@
             });
 
 
-
             /*-------------------------------------------------------------------------
                 Close modal with close button or click outside
             -------------------------------------------------------------------------*/
@@ -686,7 +680,6 @@
             modalCloseElements.on('click', function () {
                 $body.removeClass('js-modal-open');
             });
-
 
 
             /*-------------------------------------------------------------------------
