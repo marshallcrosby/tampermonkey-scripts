@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Blend Support Enhancment Suite
 // @namespace    https://marshallcrosby.com/
-// @version      0.2.6
+// @version      0.2.7
 // @description  Attempt to make Redmine a little more enjoyable to use.
 // @author       Marshall
 // @match        *support.blendinteractive.com/*
@@ -420,7 +420,17 @@
                 a.icon-attachment[href*=".avi"],
                 a.icon-attachment[href*=".AVI"],
                 a.icon-attachment[href*=".ogg"],
-                a.icon-attachment[href*=".OGG"]
+                a.icon-attachment[href*=".OGG"],
+                .has-details .details a[href*=".mp4"]:not(.icon-download),
+                .has-details .details a[href*=".MP4"]:not(.icon-download),
+                .has-details .details a[href*=".mov"]:not(.icon-download),
+                .has-details .details a[href*=".MOV"]:not(.icon-download),
+                .has-details .details a[href*=".mpg"]:not(.icon-download),
+                .has-details .details a[href*=".MPG"]:not(.icon-download),
+                .has-details .details a[href*=".avi"]:not(.icon-download),
+                .has-details .details a[href*=".AVI"]:not(.icon-download),
+                .has-details .details a[href*=".ogg"]:not(.icon-download),
+                .has-details .details a[href*=".OGG"]:not(.icon-download)
             `);
 
             if (videoAttachment.length) {
@@ -437,7 +447,7 @@
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    `).insertAfter($this.closest('table'));
+                    `).insertAfter($this.closest('table, .details'));
                 });
             }
 
