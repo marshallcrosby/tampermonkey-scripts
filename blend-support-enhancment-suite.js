@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Blend Support Enhancment Suite
 // @namespace    https://marshallcrosby.com/
-// @version      0.2.7
+// @version      0.2.8
 // @description  Attempt to make Redmine a little more enjoyable to use.
 // @author       Marshall
 // @match        *support.blendinteractive.com/*
@@ -478,7 +478,9 @@
                 a.icon-attachment[href*=".png"],
                 a.icon-attachment[href*=".PNG"],
                 a.icon-attachment[href*=".webp"],
-                a.icon-attachment[href*=".WEBP"]
+                a.icon-attachment[href*=".WEBP"],
+                a.icon-attachment[href*=".svg"],
+                a.icon-attachment[href*=".SVG"]
             `).not('[href*=".zip"]');
 
             if (imgAttachment.length) {
