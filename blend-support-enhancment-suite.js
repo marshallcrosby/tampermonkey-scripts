@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Blend Support Enhancment Suite
 // @namespace    https://marshallcrosby.com/
-// @version      0.2.8
+// @version      0.2.9
 // @description  Attempt to make Redmine a little more enjoyable to use.
 // @author       Marshall
 // @match        *support.blendinteractive.com/*
@@ -288,6 +288,10 @@
                 max-height: 90vh;
                 margin-right: auto;
                 margin-left: auto;
+            }
+
+            .js-modal__media {
+                background-color: #fff;
             }
 
             .js-modal__prev,
