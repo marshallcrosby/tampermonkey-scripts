@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Blend Support Enhancment Suite
 // @namespace    https://marshallcrosby.com/
-// @version      0.2.9
+// @version      2.0.0
 // @description  Attempt to make Redmine a little more enjoyable to use.
 // @author       Marshall
 // @match        *support.blendinteractive.com/*
@@ -13,7 +13,6 @@
     'use strict';
 
     window.addEventListener('DOMContentLoaded', function() {
-
 
         /*-------------------------------------------------------------------------
             Create style tag, populate it and throw it up in the <head> tag
@@ -44,6 +43,11 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
+            }
+
+            .controller-issues .attachments--video {
+                padding: 0;
+                background-color: transparent;
             }
 
             .js-img-gallery {
@@ -142,6 +146,7 @@
                 border-radius: 3px;
                 background-color: #eee;
                 background-position: center center;
+                background-repeat: no-repeat;
                 font-size: 0;
             }
 
@@ -216,6 +221,11 @@
                 outline: 0;
             }
 
+            .js-modal svg path {
+                fill: none;
+                stroke-width: 2px;
+            }
+
             .js-modal__dialog {
                 position: relative;
                 display: flex;
@@ -280,6 +290,10 @@
                 padding: 1rem 2rem;
             }
 
+            .js-modal__media {
+                background-color: #fff;
+            }
+
             .js-modal__body img {
                 display: block;
                 width: auto;
@@ -288,10 +302,6 @@
                 max-height: 90vh;
                 margin-right: auto;
                 margin-left: auto;
-            }
-
-            .js-modal__media {
-                background-color: #fff;
             }
 
             .js-modal__prev,
@@ -353,13 +363,13 @@
 
         let chevronSVG = /* html */`
             <svg width="15" height="37" viewBox="0 0 22 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19.9688 2.00049L2.99825 18.5843L19.9688 35.168" stroke="#1A1A1A" stroke-width="4"></path>
+                <path d="M19.9688 2.00049L2.99825 18.5843L19.9688 35.168" stroke="#1A1A1A" stroke-width="4" fill="none"></path>
             </svg>
         `;
         let closeSVG = /* html */`
             <svg width="14" height="14" viewBox="0 0 18 17.7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path class="st0" d="M17.1,1L9,8.8l8.1,7.9" stroke="#1A1A1A" stroke-width="4"/>
-                <path class="st0" d="M1,16.8L9,8.9L1,1" stroke="#1A1A1A" stroke-width="4"/>
+                <path class="st0" d="M17.1,1L9,8.8l8.1,7.9" stroke="#1A1A1A" stroke-width="4" fill="none"/>
+                <path class="st0" d="M1,16.8L9,8.9L1,1" stroke="#1A1A1A" stroke-width="4" fill="none"/>
             </svg>
         `;
         let modalHtml = /* html */`
@@ -415,16 +425,16 @@
             -------------------------------------------------------------------------*/
 
             let videoAttachment = $(`
-                a.icon-attachment[href*=".mp4"],
-                a.icon-attachment[href*=".MP4"],
-                a.icon-attachment[href*=".mov"],
-                a.icon-attachment[href*=".MOV"],
-                a.icon-attachment[href*=".mpg"],
-                a.icon-attachment[href*=".MPG"],
-                a.icon-attachment[href*=".avi"],
-                a.icon-attachment[href*=".AVI"],
-                a.icon-attachment[href*=".ogg"],
-                a.icon-attachment[href*=".OGG"],
+                a.icon-download[href*=".mp4"],
+                a.icon-download[href*=".MP4"],
+                a.icon-download[href*=".mov"],
+                a.icon-download[href*=".MOV"],
+                a.icon-download[href*=".mpg"],
+                a.icon-download[href*=".MPG"],
+                a.icon-download[href*=".avi"],
+                a.icon-download[href*=".AVI"],
+                a.icon-download[href*=".ogg"],
+                a.icon-download[href*=".OGG"],
                 .has-details .details a[href*=".mp4"]:not(.icon-download),
                 .has-details .details a[href*=".MP4"]:not(.icon-download),
                 .has-details .details a[href*=".mov"]:not(.icon-download),
@@ -440,7 +450,11 @@
             if (videoAttachment.length) {
                 videoAttachment.each(function () {
                     let $this = $(this);
-                    let hrefSplice = $this.attr('href').split('/attachments/').join('/attachments/download/');
+                    let hrefSplice = $this.attr('href');
+
+                    $this
+                        .closest('.attachments')
+                        .addClass('attachments--video');
 
                     $this.attr('href', hrefSplice);
 
@@ -473,18 +487,18 @@
             -------------------------------------------------------------------------*/
 
             let imgAttachment = $(`
-                a.icon-attachment[href*=".jpg"],
-                a.icon-attachment[href*=".JPG"],
-                a.icon-attachment[href*=".jpeg"],
-                a.icon-attachment[href*=".JPEG"],
-                a.icon-attachment[href*=".gif"],
-                a.icon-attachment[href*=".GIF"],
-                a.icon-attachment[href*=".png"],
-                a.icon-attachment[href*=".PNG"],
-                a.icon-attachment[href*=".webp"],
-                a.icon-attachment[href*=".WEBP"],
-                a.icon-attachment[href*=".svg"],
-                a.icon-attachment[href*=".SVG"]
+                .attachments a.icon-download[href*=".jpg"],
+                .attachments a.icon-download[href*=".JPG"],
+                .attachments a.icon-download[href*=".jpeg"],
+                .attachments a.icon-download[href*=".JPEG"],
+                .attachments a.icon-download[href*=".gif"],
+                .attachments a.icon-download[href*=".GIF"],
+                .attachments a.icon-download[href*=".png"],
+                .attachments a.icon-download[href*=".PNG"],
+                .attachments a.icon-download[href*=".webp"],
+                .attachments a.icon-download[href*=".WEBP"],
+                .attachments a.icon-download[href*=".svg"],
+                .attachments a.icon-download[href*=".SVG"]
             `).not('[href*=".zip"]');
 
             if (imgAttachment.length) {
@@ -496,7 +510,7 @@
 
                 imgAttachment.each(function (index) {
                     let $picture = $(this);
-                    let hrefSplice = $picture.attr('href').split('/attachments/').join('/attachments/download/');
+                    let hrefSplice = $picture.attr('href');
 
                     $picture.attr('title', $picture.text());
 
@@ -512,8 +526,13 @@
                         </div>
                     `).appendTo(galleryHtml);
 
-                    //tableRow.eq(index).clone().appendTo(jsImageItem.find('table tbody'));
-                    tableRow.eq(index).appendTo(jsImageItem.find('table tbody'));
+                    tableRow
+                        .eq(index)
+                        .appendTo(jsImageItem.find('table tbody'));
+
+                    galleryHtml
+                        .find('.icon-only')
+                        .removeClass('icon-only');
 
                     // Open modal and populate with currently clicked image link
                     jsImageItem.find('.js-img-gallery__link').on('click', function (e) {
@@ -563,9 +582,9 @@
                 a[href*=".WEBP"]
             `);
 
-            $('ul.details > li').find(imgLink).not('.icon-only, [href*=".zip"]').each(function () {
+            $('ul.details > li').find(imgLink).not('[href*=".zip"]').each(function () {
                 let $imgLink = $(this);
-                let hrefSplice = $imgLink.attr('href').split('/attachments/').join('/attachments/download/');
+                let hrefSplice = $imgLink.attr('href');
 
                 $imgLink
                     .closest('ul')
@@ -579,6 +598,8 @@
 
                 $imgLink
                     .addClass('js-img-link')
+                    .removeClass('icon-only')
+                    .removeClass('icon-download')
                     .attr('title', $imgLink.text())
                     .prepend('<img class="js-img-link__img" src="' + hrefSplice +'">');
 
