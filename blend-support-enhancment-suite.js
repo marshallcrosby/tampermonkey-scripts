@@ -492,8 +492,6 @@ function blendSupportAdjustments() {
 
             galleryHtml.insertAfter($('.details .attachments'));
 
-            const tableRow = $('.attachments table tbody tr');
-
             imgAttachment.each(function (index) {
                 const $picture = $(this);
                 const hrefSplice = $picture.attr('href');
@@ -512,8 +510,8 @@ function blendSupportAdjustments() {
                     </div>
                 `).appendTo(galleryHtml);
 
-                tableRow
-                    .eq(index)
+                $picture
+                    .closest('tr')
                     .appendTo(jsImageItem.find('table tbody'));
 
                 galleryHtml
